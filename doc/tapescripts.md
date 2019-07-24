@@ -1,6 +1,6 @@
-## Transcript 01
-
 For a written version of this course, check out the [Gatsby docs](https://www.gatsbyjs.org/tutorial/building-a-theme/).
+
+## Transcript 01
 
 Instructor: 00:01 In an empty directory, create a package.json. Inside the package.json, you're going to set private to true. Then you're going to set up your workspaces. This is an array of folder names. We're going to have two packages in this workspace. The first one is going to be called gatsby-theme-events. The second one will be called site.
 
@@ -193,4 +193,46 @@ query MyQuery {
 }
 ````
 
+## Transcript 05
+
+Create Data Driven Pages in Gatsby with GraphQL and createPages
+
+To create pages in Gatsby, there are 4 steps needed before actually doing the thing:
+
+* ensure `data` directory exists
+* define the event type
+* define resolvers for custom fields
+* query for events
+
+Now that these are done (see lesson 03 and lesson 04), let's create the `allEvent` query and loop through the result with `createPages`.
+
+Instructor: 00:00 Our last step in Gatsby Node is to create pages both for the even previews and individual event pages. We're going to do that using the createPages API hook. This one, because we're going to be running a GraphQL query, is going to be async.
+
+00:17 We're going to start up by getting the actions. We want GraphQL. Let's also grab that reporter. Set up a base path, which we will set up to be just a / right now. We'll build the pages at root. Let's set up our first page, which we'll do using the createPage action.
+
+00:42 This one is going to live at the base path. The component we're going to use doesn't exist yet, but it's going to be called event. We'll put it at source/template/events.js. We'll create that component in just a second.
+
+01:01 Next, we'll set up our GraphQL query for individual events, which will store and result. Result is going to be the result of the GraphQL query, which will await because it returns a promise. That query is going to be all event and we want to sort these by the start date. We're going to sort them in ascending order.
+
+01:24 We're going to get the fields of start date and the order is going to be ascending. All we need back from this is for each event node, we're going to get the id and the slug. If anything goes wrong, it will show up in result.errors. We can check for that here.
+
+01:49 If something does go wrong, we'll run reporter.panic, which will cause a builder and put out an error message. We'll say there was an error loading events, and show the actual error that showed up, so reporter.errors.
+
+02:07 Just to make sure that nothing else happens, we'll return. If everything goes well, we're able to grab at our events, which we will extract by going to result.data.allEvent.nodes. It will loop through each event.
+
+02:27 We're going to get the slug out, which is going to be at event.slug, and call the createPage action. The path will be the slug. The component doesn't exist yet, but it's going to live in the source/templates/event.js file.
+
+02:54 To make sure that we can identify which event is which, we're going to send in the event id as context. That is going to be pulled out of the event object at .id.
+
+03:06 Our last step to make sure that these pages build is to create the components. We need to create the event and the events components in source/template.
+
+03:19 Let's create the source/template and we'll start with events. These aren't going to show any data yet. They're just going to ensure the things don't break. We'll call this one events template. It's going to give us what to do.
+
+03:46 We'll export that as the default. Copy that. We're going to create another placeholder. This one is going to be called event template. This is going to be for single events. To test this, we can run yarn workspace Gatsby theme events develop. That will give us a local host 8000, or we can go check to see that we've got our event's page.
+
+04:28 If we trigger for 404 to see what's being created, we can see the pages for dinosaur.js, React Rally delete developer and JSHeroes have all been created. Each of those says there will be event page.
+
+````
+http://localhost:6207/404
+````
 

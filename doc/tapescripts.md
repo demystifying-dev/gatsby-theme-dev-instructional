@@ -44,12 +44,27 @@ Done in 0.11s.
 
 03:33 Our theme needs to have Gatsby, React, and ReactDOM added as peer dependencies. We'll do yarn workspace gatsby-theme-events. Add with the -P to mark it as a peer dependency. React, ReactDOM, and Gatsby.
 
+````
+yarn workspace gatsby-theme-events add -P react react-dom gatsby
+````
+
 04:01 During development, we're going to use our theme as a regular Gatsby site. We'll also set it up as a development dependency using -D. Once these finish installing, we can check our package.json and see that we have Gatsby, React, and ReactROM set up as both peer dependencies and dev dependencies.
 
+````
+yarn workspace gatsby-theme-events add -D react react-dom gatsby
+````
+
 04:27 To make sure that everything's working, we can just go ahead and start up Gatsby in development mode. We'll start with the site, yarn workspace site develop. This will start our Gatsby server in develop.
+
+````
+yarn workspace site develop -H 0.0.0.0 -p 6206
+````
 
 04:42 We don't have any content here. It's going to be an empty site, but we can grab out localhost 8000. We can go out to our browser and paste this up. We can see that Gatsby's running. There's no pages yet. Again, it's just going to give us this 404, but we can see that it's working.
 
 04:59 Let's do the same thing with the theme, so gatsby-theme-events run develop. Now we can see here's localhost 8000 again. If we come back out and refresh the page, again we get that 404. Gatsby's running. It just needs some content.
 
+````
+yarn workspace gatsby-theme-events develop -H 0.0.0.0 -p 6207
+````
 

@@ -128,3 +128,69 @@ Instructor: 00:00 To create pages, we need to create a file called gatsbynode.js
 
 02:04 Now whenever we fire up a site using this theme, the first thing that'll happen is it's going to check if the data directory exists, and if not, it'll create it.
 
+## Tapescript 04
+
+Set up to Create Data Driven Pages in Gatsby
+
+To actually create pages, we'll need to:
+
+    define the event type
+    define resolvers for custom fields
+    query for events
+
+Once we do this, we'll be ready to finally display the data in a page which is covered in: Display Data in React Provided in Gatsby with GraphQL
+
+Instructor: 00:00 Our next step is to use the sourceNodes API hook, which will give us an actions object. We're going to define our node type or our event node. We do that using the createTypes action. Inside of this, we need to set up an event type that's going to implement the node interface.
+
+00:26 We don't want Gatsby to infer any fields. We want to make sure that each one of them is explicitly defined. We're going to need an ID. We're also going to need the name, which is going to be a string. We need a location, which is going to be a string. We need the start date.
+
+00:47 You'll note if we look at the events, start date doesn't actually line up with startDate, but we do want to use that camelCase style. We'll deal with that in just a second. Because the start date is a date, we want to use Gatsby's date built-in. We're going to use date format like this.
+
+01:07 To make sure that we can actually load the start date into this field despite the fields not lining up, we're going to use the proxy directive, which will let us say where to pull it from. In this case, it's going to be from start date.
+
+01:22 We can do exactly the same thing for the end date by duplicating that whole line and swapping it out for end date. Finally, we want to get the URL, which is this string. This URL is the live website. We also need to be able to create a URL on our own website.
+
+01:41 We'll do that using a slug. The slug is going to be a string. It is a required string, but you'll notice that we don't have a slug to find in this object. We're going to need to define one ourselves, which we'll do with this custom resolver.
+
+01:57 Gatsby gives us a createResolvers API hook. That gives us a function called createResolvers. Inside this function, we are going to set up a base path. This is the URL base. In our case, it's going to be the site index.
+
+02:17 Then we need to set up a function to actually create our slugs. We're going to call this slugify. This is going to accept a string, which will be in our case the name of the event. That is going to need to return a slugified string.
+
+02:35 Our first step is to turn the name into a slug, which we'll do by creating a variable called slug. That's going to get the string, which we will then turn into a lowercase string. After we have the name converted to lowercase, we need to change any character that's not a letter or a number into a hyphen. We'll use a regular expression for that with the replace function.
+
+02:59 Let's set up a character set using square brackets and say anything that's not -- that's what this caret at the beginning means -- a lowercase A through Z or the number zero through nine. We can take one or more of those. We're going to take all of them that we find, not just the first occurrence, but every occurrence in the string. We're going to turn it into a hyphen.
+
+03:23 This gives us a lowercase hyphenated slug, but it might still have a leading or a trailing hyphen if it started with, say, a quote. We want to add another regular expression to correct that.
+
+03:36 We'll check if it starts with a hyphen. That's what the caret hyphen here means or with a pipe if it ends with a hyphen, which is what hyphen dollar sign means. Again, we'll just do a plus sign in case there are two hyphens or something at the end. We'll find every occurrence in the string and replace that with an empty string, so basically remove it.
+
+04:02 Now that we've got a slug, we can return that. We're going to include the base path first, add a slash and then the slug. You probably just noticed that the base path has a slash in it. We're leading with a slash and we're adding another slash here. That actually means this is going to be three slashes.
+
+04:22 We're going to do one last thing to prevent over-slashing. We're going to look for a forward slash, any sequence of two or more forward slashes, which we're doing by escaping a forward slash here, escaping another one, and then checking for one or more of those. This is going to be two-plus forward slashes. We'll replace those with a single forward slash.
+
+04:50 The reason we're doing that is that if we decide to change this base path or we set up from an option, which we'll do in another lesson in this course, you want to make sure that you can't accidentally break your slugs by adding too many slashes. This is just a real quick check to make sure that you're returning a properly slashed slug.
+
+05:12 With our slugify function defined, we can create our resolvers, which we do with the createResolvers function. Pass that an object. We get into the event type, the slug field. Then we want to set a function to resolve it. That function gets the source, which would be in this case the event node, so the name, location, start date, etc. We want to return the slugified version of the event name.
+
+05:47 We can test that this is working by running yarn workspace gatsby theme events develop. This will give us our GraphQL layer again, which we can see here at 8000/graphql. If we open up GraphQL again, we can go back to all event, look into our nodes. Now we can see the start date and end date have been switched up to camelCase and we have a slug available.
+
+06:22 Let's open these up. Because we set the end date and start date to be date types, we also get these helper functions, where we can do things like say fromNow. Using fromNow, we're able to do things like relative time, like how far away an event is, or we can format the string with something like this, where it'll give us the long date, the day, and the long year or a short date.
+
+````
+yarn workspace gatsby-theme-events develop -H 0.0.0.0 -p 6207
+
+http://0.0.0.0:6207/___graphql
+
+query MyQuery {
+  allEvent {
+    edges {
+      node {
+        name
+        endDate(formatString: "MMMM DD, YYYY")
+      }
+    }
+  }
+}
+````
+
+

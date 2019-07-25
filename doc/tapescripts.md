@@ -233,6 +233,54 @@ Instructor: 00:00 Our last step in Gatsby Node is to create pages both for the e
 04:28 If we trigger for 404 to see what's being created, we can see the pages for dinosaur.js, React Rally delete developer and JSHeroes have all been created. Each of those says there will be event page.
 
 ````
+yarn workspace gatsby-theme-events develop -H 0.0.0.0 -p 6207
+
 http://localhost:6207/404
 ````
+
+## Transcript 06
+
+Display Sorted Data with useStaticQuery in Gatsby
+
+Now that the event list data is available to us and the subsequent pages created, we need to create a template in Gatsby to render this list too.
+
+In this lesson we'll use `useStaticQuery` provided to us from Gatsby and query for the data available. Then a `EventList` component will be created for that data to be passed into and displayed properly.
+
+A `Layout` Component will also be created so there is a consistent look throughout our application.
+
+Instructor: 00:01 To show event data, we're going to import GraphQL and use static query from Gatsby in our events.js component. We need to make sure that we're able to actually run things inside of this, so we'll refactor it. We're going to set up a data constant. That's going to be the result of the useStaticQuery hook.
+
+00:33 The query that we're going to run is going to be allEvent. We're going to sort by the start date field. We want to get that back in ascending order. For each node or each event in the event database, we want to get the ID, the name, the start date, the end date, the location, the URL, and the slug. That's every piece of data that we have.
+
+01:07 When that comes back, we're going to store that in events. This is just going to be an alias for data.allEvent.nodes to make it a little easier to read. We want to pass that into a component.
+
+01:25 We want to do two things here. First, we want to create a general layout that we'll reuse across all of our sip pages. Then we want to create an event list. Let's show what this will look like and then create the components that we need.
+
+01:39 We'll have a layout. Then we'll have an event list. That will take an events prop that will get the value of the events from the database. Let's go in and create this. First, we're going to create a components folder and a layout.js. For now, this is going to be pretty basic. We'll call it layout.
+
+02:12 It's going to have a children prop, which is whatever's inside of it. It will return just a div with an h1. It'll say gatsby-events-theme. How about that? Then it will return the children. We'll export default layout. That'll be that for now.
+
+02:42 Next, in the components directory, we're going to create event-list.js. This one is also going to import React from react. It's going to be called event-list. It takes one prop, which is events. Inside of it, for now, let's just dump that data. We'll do a json.stringify of the events. We'll use a little bit of formatting to make sure that looks OK.
+
+03:17 We'll export default event list. Then let's go back to events.js and make sure that we've imported these components. We'll import Layout from components/layout. We'll import EventList from components/event-list. Then we'll save that and start up our server again, so yarn workspace gatsby-theme-events develop.
+
+03:53 When we open localhost 8000 in our browser, we can see that our layout shows up. We have gatsby-events-theme. We have the dump of all of the event objects. This is an array with each event in it. We can see we've got the ID, name, and all the other data for these events.
+
+04:11 To display these, we're going to update our event list. The nice thing about this is that when we look at this, we've created what I like to call the layer cake. We have our events template. This fires off a query and then uses that query into a component that takes the event as a prop.
+
+04:34 Because we've now sent these in as a prop, event list doesn't have to worry about data. It just has to worry about props, which makes it much easier, as we get into things like component shadowing, to allow people to do what I like to call the progressive disclosure of complexity, where they can peel back one layer of abstraction at a time.
+
+04:54 They can update the way that this component works without having to care about GraphQL. When they need to go deeper, they can jump in and start messing with the GraphQL query or even go a little bit deeper than that and start playing with the Gatsby node.
+
+05:09 Let's start by getting rid of this pre tag. Then we're going to set up a fragment because we don't want to generate unnecessary markup here. We'll put a heading. That heading is going to be, for now I guess, just upcoming events. How about that?
+
+05:31 Then we're going to set up an unordered list. We'll do an events.map through each event. That's going to return a list item. Each list item needs a key. We'll use the event ID for that. Then we're going to set up a strong tag that's going to be a linked name of the header.
+
+05:56 To link internally, since we're linking to a page on the same site, we're going to import the link component from Gatsby. Then we're going to use that down here. We're going to go link to and, because we've got the slug, we can go to event.slug and then event.name.
+
+06:21 Outside of the strong tag, we're just going to add a line break. On the next page, we will set up the date. We're going to use the built-in date handling. We'll do event.startDate. Create a JavaScript date object out of that. Then we're going to use toLocaleDateString.
+
+06:42 I'm going to use en-US as the locale. That's American English. We want to use the long version of the month. We want to use the numeric version of the day. We also want to use the numeric version of the year.
+
+07:02 After that, we're going to add where it is. It's going to be on that date in event.location. If we save that, we can come back out and take a look. Now we can see we've got dinosaur.js, React Rally. If we click through, it takes us to the appropriate page for each event.
 

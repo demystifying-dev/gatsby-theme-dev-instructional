@@ -284,3 +284,34 @@ Instructor: 00:01 To show event data, we're going to import GraphQL and use stat
 
 07:02 After that, we're going to add where it is. It's going to be on that date in event.location. If we save that, we can come back out and take a look. Now we can see we've got dinosaur.js, React Rally. If we click through, it takes us to the appropriate page for each event.
 
+## Transcript 07
+
+Display and Query Data by id with Gatsby context and useStaticQuery
+
+Similar to `EventList`, we'll need to create a template React component for each individual Event page.
+
+To do this, we'll need to add a page query, to access GraphQL variables, to query for individual events by id. Once that data is available, it can be passed into an `Event` component that will display the data for us.
+
+Instructor: 00:00 Next up, we can do the same thing but for individual event pages, so this is going to be a little bit different. We're going to import GraphQL from Gatsby, and we're going to then export a page query. The reason that we're doing a page query here is that we need access to GraphQL variables.
+
+00:21 In pages, when we create pages using context, anything that we add to the context becomes available as a GraphQL query. In here, I can set up my query and then use the event ID which will be a string. I'm going to get an event with an ID that is equal to the event ID that we passed in context.
+
+00:50 Then I want the name, the URL, the start date, and I will format that event string as long-month-name and then the day. Here, we'll also do the same thing with the end date. We want the location and the slug.
+
+01:19 What's going to happen? That will be passed in the data prop. Anything that goes into page query gets injected into this component as the data prop. Then we can just destructure that to get to the event.
+
+01:37 With this, we want to refactor to use that layout component. We'll do layout, and we can have it auto-import for us. Then we need to create a new component called Layout. We're actually going to spread the event right into it. What that means is that this component is going to get each of these pieces of data as a prop.
+
+02:06 We can go into components and create event.js. If we import React from React, we can then set up event and we'll start with props. Let's just spread that so we can see.
+
+02:23 We've got the pre-tag. We will stringify our props. Let's see what comes out. We'll export that as our default. If I import this from event then we jump back out.
+
+02:43 We can see that it is giving us the name, URL, start date, end date, location, and slug as props. I can in this event component now turn it into actual markup. For this markup, we can delete that dump.
+
+03:04 We'll set up a div, then we're going to set up a heading. We can destructure here so that we've got it. We're going to have the name, location, URL, start date. End date is what we're going to use today. We'll grab that name and say where it is. It's going to be on location.
+
+03:27 Then we want to show off the date. Now the date is going to be a little funky, I'll show you why. If we start with the start date and then go to end date, that'll look OK instead of the website.
+
+03:47 The website is an external link so we're not going to use the Gatsby link component. We'll set that to URL, and we'll just show that URL so that you know what your'e clicking on. If we save that and come back out here then we can see this looks OK.
+
+

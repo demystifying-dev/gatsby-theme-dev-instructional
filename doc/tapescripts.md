@@ -314,4 +314,40 @@ Instructor: 00:00 Next up, we can do the same thing but for individual event pag
 
 03:47 The website is an external link so we're not going to use the Gatsby link component. We'll set that to URL, and we'll just show that URL so that you know what your'e clicking on. If we save that and come back out here then we can see this looks OK.
 
+## Transcript 08
 
+Style and Format Dates in React
+
+The `Event` Page is looking pretty good. But we can do better.
+
+The date currently comes from a query that gets the start and end date as props and dumps that data out in a `<p>` tag.
+
+In this lesson, we'll add some custom logic to display the date of an Event how you would expect it.
+
+Instructor: 00:00 Right now, the date, but it doesn't look great. The date currently comes from a query that looks for the start date and the end date. This is then passed into our Event component. Inside the Event component, we get the start date and end date as props which we then just set next to each other, so the start date and en dash and then the end date.
+
+00:21 While this is fine, it's not ideal. We're going to refactor this component with a little bit of business logic to read those dates and display them in a way that's a little more human-readable.
+
+00:31 We'll start out by saying let's create a new component called EventDate. This one is going to take a start date and an end date. First, we're going to turn in each of these into a new Date object. We'll send in start date. We'll get the end. We'll turn that into a Date object.
+
+00:57 Then we're going to do a check to see if it's a one-day event, so if it happens on the same day. One example of this is -- let's see -- this one here. This one happens on the same day. We can go say if it's one day, we'll say start.toDateString equals end.toDateString.
+
+01:19 Then we can return a component. We'll use a fragment to make sure that we're not generating any junky markup. We're going to use the Time component with datetime so that it's machine-parsable. That's going to need to contain something. Then this one is going to need to contain the actual date.
+
+01:41 The way that we want this to work is, in pseudocode, if it's two days or multiple days, we want it to look something like this, June 21st to 23rd, 2019. It'll look something like that. If it's one day, we want it to look like this. If it crosses month boundary, so if it was June 30th to July 2nd, we want it to look like that.
+
+02:12 We need to add all of that logic. The way that we're going to do that is first we're going to create a little helper function to get our date so that we don't have to have a bunch of duplicate code. We'll do getDate. That's going to accept our date.
+
+02:28 Then we're going to say whether we want the day, which will default to true, the month, which will also default to true, and the year, which will default to true. We'll also make sure that if you don't pass in an argument, it'll default to an empty object, which means everything will be true.
+
+02:48 What we're going to give back is the toLocaleDateString. That's going to be in the US locale. We'll say the day is going to be day. It's either numeric, or if day is false, it'll be undefined. We'll do the same thing for the year. For the month, it's going to be long if it's not undefined.
+
+03:26 Then, down in this time, we can set it up to say we want to get date using start. We will say only show the year if it is one day. For the datetime, we're going to use the start.toISOString. To start, let's use this event date down here. We'll just say event date with a start date of start date and an end date of end date.
+
+04:17 This gives us a time datetime. We can see that ISO string comes in here. Because it is one day, this shows us the year. If we go back and look at one that's multi-day, it doesn't show us the year. We want to finish that out now by getting the rest of these.
+
+04:39 We'll say up here that if it's not one day, then we will use another fragment. Add that en dash. Add another time, the datetime. This one is going to be the end.toISOString. We will getDate using the end. The month will be if the start.getMonth does not the end.getMonth, then we want to show the month.
+
+05:29 This basically says only show the month if the start month and the end month are different. I need to add in my last fragment. If I save that, then when I come back out, I can see we've now got June 20th to 21st. Perfect.
+
+05:51 If we go back to the main list, we can see that that is working properly. For a one-day conference, it gives us what we want. That puts us in good shape. We're looking pretty good here.

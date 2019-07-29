@@ -416,4 +416,48 @@ Instructor: 00:00 In a Gatsby theme, you can pass options to both the Gatsby con
 
 02:55 Once we stop and restart with yarn workspace site develop, we should see our events directory here. We can see six pages have been generated. If we jump back out, we can see here's our event. We've got events-dinosaur.js. This shows that our config options are being taken into account.
 
+## Transcript 11
+
+Make Gatsby Themes extendable with gatsby-theme-ui
+
+Allow people using your theme to apply their own design to the theme by defining design tokens with theme-ui.
+
+For a written version of this course, check out the [Gatsby docs](https://www.gatsbyjs.org/tutorial/building-a-theme/).
+
+Instructor: 00:00 We can make our theme styles extendable using Gatsby Theme UI, which we can install with Yarn workspace Gatsby theme events add, Gatsby Theme UI, and its dependencies, Theme UI, emotion/core, emotion/styled, and mdx-js/react.
+
+````
+yarn workspace gatsby-theme-events add gatsby-theme-ui theme-ui @emotion/core @emotion/styled @mdx-js/react
+````
+
+00:28 In our Gatsby config, we are going to add Gatsby Theme UI as a plug-in. What Gatsby Theme UI does is it takes a global theme context object and makes it available to all themes using Gatsby Theme UI. To use it, we're going to create a theme.js in the root of our source folder.
+
+00:55 Theme UI is part of a system UI network of tools, which means that it's going to give us an object that follows the system UI theme specification. We can export a constant called theme.
+
+01:07 The first thing we're going to set is space. Space is an array of different widths that we want to provide as margin padding or other style widths. These values are set in pixels. We'll look at how to access those later.
+
+01:26 Next, we're going to set the fonts. For this particular example, we're only going to use body fonts. We're going to use the system font stack. We'll do a simplified system font stack, which is going to use the Apple system, BlinkMacSystemFont, Segoe UI, Roboto. It will fall back to Sans-serif.
+
+01:51 We also want to set font sizes. Font sizes is going to be an array. The smallest we'll go is 16. Probably set 18 as a default, 20, 22, 27. The largest we'll go is 36. For line heights, we want to use 1.45 as our default. That's good for legibility. For headings which have higher font size, we can use a lower line height.
+
+02:22 Next, we can just set up colors. Most of this site is going to be in shades of gray. We are going to do an array of gray colors. Our lightest is going to be EFEFEF. We will set a lighter at straight Ds. We'll set a text color at triple threes, and a heading color at triple ones.
+
+02:49 Next, we'll set up a background color. That will be white. We'll set a primary or a brand color. We're going to set this one as Rebecca Purple. After colors, we're going to set sizes. These will be the sizes of our containers, documents, things like that. Our default size is going to be 90 viewport width units. That's 90 percent of the viewport width.
+
+03:21 Our maximum size to keep a good line length is going to be 540 pixels. Finally, we can start setting some styles. Styles are a little bit special because they're going to reference components or regular markup elements. Theme UI has some special components that it provides for us. The first one is layout. We're going to use the second gray color, which is 012 as the default color for this document.
+
+03:53 The font family, we're going to set as body, which reads out of font's body. The font size is going to be one, which reads out of 01, so 18. The line height will be body which, again, is reading out of the line height object. That sets defaults for our layout component.
+
+04:25 We also get a header component out of Theme UI. We'll set a background color to primary. That's that Rebecca Purple we set. The color we're going to set is background. This inverts that header color scheme. The font weight we'll use is bold. This is just a plain CSS property. We have the ability to use plain CSS. For our margin, for example, we can do margin zero auto.
+
+04:57 We want to set a max width, which we will set to max. That comes out of our sizes array, max here. We're also going to set a padding of three. That comes out of our space array. Zero, one, two, three. We're going to set a 16-pixel padding. We will set the width. The width will be the default. 90 percent of the viewport.
+
+05:28 After that, we can design our main component. We'll set this one as well to be zero auto, so it's centered. We'll set the max width to max. We'll set the width to default. We get a container from Theme UI. With this one, we're just going to set the padding to three.
+
+05:51 Finally, we're going to start designing basic HTML markup. For H1 elements, we want to have the color be darker. We're going to use gray three, which is the darkest one we created. We use our biggest font size since it's an H1. That's five. We'll set the font weight to bold. We'll set the line height to heading, which pulls that 1.1 line height from the line height's object.
+
+06:23 We will set the margin to zero. The margin top, we will set to three, which is going to use the space array. For an unhonored list, we will set a border top of one pixel solid. We'll set a border color of gray.zero. We can also set the list style to none and the padding to zero. For list elements, we're going to set the border bottom to one pixel solid.
+
+07:13 We will set the border color to gray.zero. Set the padding to two. We're going to target pseudo classes. We're going to get the focus within. If someone tabs into one of these LIs to get the event link, that will trigger that, or if they hover over it. Hover, we want to apply these styles. When someone hovers over one of our elements, we want to set the background color to gray.zero.
+
 

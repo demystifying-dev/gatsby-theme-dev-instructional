@@ -481,3 +481,19 @@ Instructor: 00:00 To use the theme we've defined, we need to use something calle
 01:18 To see whether or not this worked, we can test it using yarn workspace site develop. On loading the site, we can see that our styles have been applied. We can also use the style import from Theme UI. To apply the styles we set, to regular imports.
 
 01:44 By replacing the h1 with style.h1, and doing the same for our UL and LI that we defined, we can see that our styles are now applied, including our hover styles.
+
+## Transcript 13
+
+Publish a Gatsby Theme to npm
+
+Make your Gatsby theme available for use by anyone in the community by publishing it as an npm package. 
+
+For a written version of this course, check out the [Gatsby docs](https://www.gatsbyjs.org/tutorial/building-a-theme/).
+
+Instructor: 00:00 To publish our theme, we need to update a couple of things in package.json. The most important one is that we want to name space our theme. This helps us keep track of who publish it, and it also helps avoid naming collisions.
+
+00:15 Once we've got our theme name space, we need to make sure that we're logged in to npm. We can check this by writing npm whoami. If we're not logged in, it's going to tell us that we need to be logged in and how to do it. We can run npm add user. It's going to ask me for my user name and a password. I have to fill in my email.
+
+00:47 Now that I am logged in, if I run npm whoami, it shows me that I am Jay Lengstorf. With the theme name spaced, and me logged into npm, I am ready to publish. I can change directories into the Gatsby theme event directory. I can run npm publish, and because it's name space, I need to include access public.
+
+01:12 Now, it's published. After publishing, we'll be able to find our theme up on npm at npmjs.com/package and the name of our theme.

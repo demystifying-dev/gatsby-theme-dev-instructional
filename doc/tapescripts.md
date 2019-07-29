@@ -460,4 +460,24 @@ yarn workspace gatsby-theme-events add gatsby-theme-ui theme-ui @emotion/core @e
 
 07:13 We will set the border color to gray.zero. Set the padding to two. We're going to target pseudo classes. We're going to get the focus within. If someone tabs into one of these LIs to get the event link, that will trigger that, or if they hover over it. Hover, we want to apply these styles. When someone hovers over one of our elements, we want to set the background color to gray.zero.
 
+## Transcript 12
 
+course or lesson
+Next lesson
+Use and Override a Theme in Gatsby with Component Shadowing
+
+Now that styles are set in `theme-ui`, we need to actually use them in our application. First, we'll override the default `theme-ui` config by shadowing the `theme` object in `gatsby-theme-ui/index.js` and start using the theme throughout. 
+
+For a written version of this course, check out the [Gatsby docs](https://www.gatsbyjs.org/tutorial/building-a-theme/).
+
+Instructor: 00:00 To use the theme we've defined, we need to use something called component shadowing to override the default theme in Gatsby Theme UI.
+
+00:09 We do this by creating a folder with the same name as the theme in the source folder. We'll call it Gatsby Theme UI, and then we're going to shadow the index.js, which is where the theme is defined. We're going to import theme that we just defined in theme.js. We'll export default theme.
+
+00:37 Next, we'll refactor our layout to use theme UI. We'll start by importing the layout, but since that conflicts with our layout component, we're going to alias that as theme layout. We'll also import header, main, and container from theme UI.
+
+00:56 Once we have those components, we will start using them. Wrap the whole thing with theme layout. We'll set up a header. Move our h1 inside of that header. We'll set up the main component with the container inside of it, and move children inside of that.
+
+01:18 To see whether or not this worked, we can test it using yarn workspace site develop. On loading the site, we can see that our styles have been applied. We can also use the style import from Theme UI. To apply the styles we set, to regular imports.
+
+01:44 By replacing the h1 with style.h1, and doing the same for our UL and LI that we defined, we can see that our styles are now applied, including our hover styles.

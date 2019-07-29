@@ -351,3 +351,69 @@ Instructor: 00:00 Right now, the date, but it doesn't look great. The date curre
 05:29 This basically says only show the month if the start month and the end month are different. I need to add in my last fragment. If I save that, then when I come back out, I can see we've now got June 20th to 21st. Perfect.
 
 05:51 If we go back to the main list, we can see that that is working properly. For a one-day conference, it gives us what we want. That puts us in good shape. We're looking pretty good here.
+
+## Transcript 09
+
+Configure a Gatsby Theme to Take Options
+
+Gatsby themes accept options. Learn how to read these options and generate pages from the correct data at the appropriate locations.
+
+In this lesson, we'll:
+
+* turn the `gatsby-config` into a function
+* pass in options as arguments to that function
+* update `gatsby-node` to reference the options passed in
+
+In a consuming package, you can configure the `options` object however you need to within the plugins array.
+
+Instructor: 00:00 In a Gatsby theme, you can pass options to both the Gatsby config and to the Gatsby node. In Gatsby config, let's make our config object into a function. Any options passed to the theme will be provided as arguments to this function.
+
+00:21 We're going to update to use both the content path, which will default to data, and the base path, which will default to the root URL. We're going to pass those in here. Where the path is, we're going to use content path. We'll come back to base path here in just a minute.
+
+00:43 In Gatsby node, options are passed as a second argument to the API hooks, so we can grab it out of options. Content path will now be options.contentPath or data. We'll do the same thing on our createResolvers. Get an options object.
+
+01:05 We'll say options.basePath or root. We can copy that and come down here. Do the same thing one last time. Base path will be options.basePath or a forward slash.
+
+01:24 To test this, we need to actually set up our site, which we've thus far ignored, to use our theme so we can set some options. We've already installed the theme as a dependency, which means that we can set up our gatsby-config.js. Inside Gatsby config, we're going to export a config object. In the plugins array, we're going to include our theme.
+
+01:50 Let's resolve to Gatsby theme events. We'll set the options to our two options. We've got the content path, which needs to be set, and the base path, which also needs to be set. To test that these options are working, we're going to pick something deliberately different.
+
+02:12 We'll set this to events. Let's set the base path to events as well. What we should see is that when we run this theme, an events directory will get created here. We'll see a page called events that has our event listing on it.
+
+02:29 To test this, run yarn workspace site develop in the terminal. Once this is running, we can see that the events folder was created. If we go back out to our page, we can see that the events page was created with the events. However, we don't have any events yet. Let's copy our events over from the data directory into our new events directory.
+
+02:55 Once we stop and restart with yarn workspace site develop, we should see our events directory here. We can see six pages have been generated. If we jump back out, we can see here's our event. We've got events-dinosaur.js. This shows that our config options are being taken into account.
+
+## Transcript 10
+
+Configure a Gatsby Theme to Take Options
+
+Gatsby themes accept options. Learn how to read these options and generate pages from the correct data at the appropriate locations.
+
+In this lesson, we'll:
+
+* turn the gatsby-config into a function
+* pass in options as arguments to that function
+* update gatsby-node to reference the options passed in
+
+In a consuming package, you can configure the options object however you need to within the plugins array.
+
+Instructor: 00:00 In a Gatsby theme, you can pass options to both the Gatsby config and to the Gatsby node. In Gatsby config, let's make our config object into a function. Any options passed to the theme will be provided as arguments to this function.
+
+00:21 We're going to update to use both the content path, which will default to data, and the base path, which will default to the root URL. We're going to pass those in here. Where the path is, we're going to use content path. We'll come back to base path here in just a minute.
+
+00:43 In Gatsby node, options are passed as a second argument to the API hooks, so we can grab it out of options. Content path will now be options.contentPath or data. We'll do the same thing on our createResolvers. Get an options object.
+
+01:05 We'll say options.basePath or root. We can copy that and come down here. Do the same thing one last time. Base path will be options.basePath or a forward slash.
+
+01:24 To test this, we need to actually set up our site, which we've thus far ignored, to use our theme so we can set some options. We've already installed the theme as a dependency, which means that we can set up our gatsby-config.js. Inside Gatsby config, we're going to export a config object. In the plugins array, we're going to include our theme.
+
+01:50 Let's resolve to Gatsby theme events. We'll set the options to our two options. We've got the content path, which needs to be set, and the base path, which also needs to be set. To test that these options are working, we're going to pick something deliberately different.
+
+02:12 We'll set this to events. Let's set the base path to events as well. What we should see is that when we run this theme, an events directory will get created here. We'll see a page called events that has our event listing on it.
+
+02:29 To test this, run yarn workspace site develop in the terminal. Once this is running, we can see that the events folder was created. If we go back out to our page, we can see that the events page was created with the events. However, we don't have any events yet. Let's copy our events over from the data directory into our new events directory.
+
+02:55 Once we stop and restart with yarn workspace site develop, we should see our events directory here. We can see six pages have been generated. If we jump back out, we can see here's our event. We've got events-dinosaur.js. This shows that our config options are being taken into account.
+
+
